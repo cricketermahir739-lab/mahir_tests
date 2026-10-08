@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batch Portal</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #697386;
+    --primary: #315efb;
+    --primary-dark: #2449c8;
+    --border: #e5e9f2;
+    --success: #16a34a;
+    --danger: #dc2626;
+    --warning: #d97706;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* LOGIN */
+
+#loginPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    background:
+        radial-gradient(circle at top right, #dfe7ff, transparent 35%),
+        var(--bg);
+}
+
+.login-box {
+    width: 100%;
+    max-width: 430px;
+    background: white;
+    padding: 40px;
+    border-radius: 22px;
+    box-shadow: 0 20px 60px rgba(20, 30, 60, .10);
+}
+
+.logo {
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 21px;
+    margin-bottom: 22px;
+}
+
+.login-box h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.login-box p {
+    color: var(--muted);
+    margin-bottom: 28px;
+}
+
+.input-group {
+    margin-bottom: 17px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: var(--primary);
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    background: var(--primary-dark);
+}
+
+.demo-note {
+    margin-top: 20px;
+    padding: 12px;
+    background: #f5f7ff;
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* APP */
+
+#app {
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 240px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #101828;
+    color: white;
+    padding: 25px 16px;
+    z-index: 20;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+    margin-bottom: 35px;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.sidebar-brand span {
+    background: var(--primary);
+    padding: 8px;
+    border-radius: 9px;
+    font-size: 13px;
+}
+
+.nav-item {
+    width: 100%;
+    padding: 12px 13px;
+    margin-bottom: 6px;
+    border: none;
+    background: transparent;
+    color: #aeb8ca;
+    text-align: left;
+    border-radius: 9px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: #1c2940;
+    color: white;
+}
+
+.logout {
+    position: absolute;
+    bottom: 25px;
+    left: 16px;
+    right: 16px;
+    color: #fca5a5;
+}
+
+.main {
+    margin-left: 240px;
+    padding: 30px;
+    max-width: 1500px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.topbar h1 {
+    font-size: 27px;
+}
+
+.user-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #dce5ff;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+
+/* DASHBOARD */
+
+.welcome {
+    margin-bottom: 25px;
+}
+
+.welcome h2 {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.welcome p {
+    color: var(--muted);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 17px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.stat-card .label {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 9px;
+}
+
+.stat-card .value {
+    font-size: 27px;
+    font-weight: 800;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+}
+
+.card-title {
+    font-size: 17px;
+    font-weight: 750;
+    margin-bottom: 18px;
+}
+
+.exam-card {
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 17px;
+    margin-bottom: 12px;
+}
+
+.exam-card:last-child {
+    margin-bottom: 0;
+}
+
+.exam-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.exam-title {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.exam-info {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.badge {
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    height: fit-content;
+}
+
+.badge.blue {
+    background: #e7edff;
+    color: #315efb;
+}
+
+.badge.green {
+    background: #e6f8ed;
+    color: #15803d;
+}
+
+.exam-actions {
+    margin-top: 14px;
+}
+
+.small-btn {
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 9px 13px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.small-btn.secondary {
+    background: #eef1f6;
+    color: var(--text);
+}
+
+/* TABLE */
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 13px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+th {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/* EXAM */
+
+.exam-container {
+    max-width: 850px;
+    margin: auto;
+}
+
+.exam-header {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.timer {
+    background: #fff1f2;
+    color: #dc2626;
+    padding: 10px 15px;
+    border-radius: 9px;
+    font-weight: 800;
+}
+
+.question-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 15px;
+}
+
+.question-number {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.question-text {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.option {
+    display: block;
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 9px;
+    cursor: pointer;
+    transition: .15s;
+}
+
+.option:hover {
+    border-color: var(--primary);
+    background: #f8faff;
+}
+
+.option input {
+    margin-right: 9px;
+}
+
+.submit-exam {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-weight: 750;
+    margin-bottom: 30px;
+}
+
+/* RESULT */
+
+.result-box {
+    max-width: 650px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.score-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #edf2ff;
+    border: 9px solid #dce5ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 25px auto;
+}
+
+.score-circle strong {
+    font-size: 35px;
+    color: var(--primary);
+}
+
+.score-circle span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.result-message {
+    color: var(--muted);
+    margin: 10px 0 25px;
+}
+
+/* ADMIN */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    margin-bottom: 13px;
+}
+
+textarea.form-input {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+    .sidebar {
+        width: 70px;
+        padding: 20px 10px;
+    }
+
+    .sidebar-brand strong,
+    .nav-item span {
+        display: none;
+    }
+
+    .sidebar-brand {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .nav-item {
+        text-align: center;
+        padding: 12px 5px;
+    }
+
+    .main {
+        margin-left: 70px;
+        padding: 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .main {
+        padding: 15px;
+    }
+
+    .topbar h1 {
+        font-size: 21px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .stat-card .value {
+        font-size: 22px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .exam-header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<section id="loginPage">
+
+    <div class="login-box">
+
+        <div class="logo">BP</div>
+
+        <h1>Batch Portal</h1>
+
+        <p>Academic examination and performance portal.</p>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+                <label>Student ID</label>
+                <input
+                    id="studentId"
+                    type="text"
+                    placeholder="e.g. 2026-001"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="Enter password"
+                    required
+                >
+            </div>
+
+            <button class="primary-btn" type="submit">
+                Sign In
+            </button>
+
+        </form>
+
+        <div class="demo-note">
+            Demo login: <b>2026-001</b><br>
+            Password: <b>123456</b>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- APP -->
+
+<section id="app" class="hidden">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <span>BP</span>
+            <strong>Batch Portal</strong>
+        </div>
+
+        <button class="nav-item active" data-page="dashboard">
+            🏠 <span>Dashboard</span>
+        </button>
+
+        <button class="nav-item" data-page="exams">
+            📝 <span>Exams</span>
+        </button>
+
+        <button class="nav-item" data-page="records">
+            📊 <span>My Records</span>
+        </button>
+
+        <button class="nav-item" data-page="profile">
+            👤 <span>Profile</span>
+        </button>
+
+        <button class="nav-item" data-page="admin">
+            ⚙️ <span>Admin</span>
+        </button>
+
+        <button class="nav-item logout" id="logoutBtn">
+            ↪ <span>Logout</span>
+        </button>
+
+    </aside>
+
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <h1 id="pageTitle">Dashboard</h1>
+
+            <div class="user-badge">
+                <div>
+                    <strong id="userName">Student</strong>
+                    <div style="font-size:12px;color:#697386">
+                        Student
+                    </div>
+                </div>
+
+                <div class="avatar" id="avatar">
+                    S
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- DASHBOARD -->
+
+        <section id="dashboardPage" class="page">
+
+            <div class="welcome">
+
+                <h2>
+                    Welcome back, <span id="welcomeName">Student</span>!
+                </h2>
+
+                <p>
+                    Here's an overview of your academic performance.
+                </p>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="label">Exams Taken</div>
+                    <div class="value" id="statExams">0</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="label">Average Score</div>
+                    <div class="value" id="statAverage">0%</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="label">Highest Score</div>
+                    <div class="value" id="statHighest">0%</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="label">Best Result</div>
+                    <div class="value" id="statBest">—</div>
+                </div>
+
+            </div>
+
+
+            <div class="content-grid">
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Available Exams
+                    </div>
+
+                    <div id="dashboardExams"></div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Recent Results
+                    </div>
+
+                    <div id="recentResults"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- EXAMS -->
+
+        <section id="examsPage" class="page hidden">
+
+            <div class="card">
+
+                <div class="card-title">
+                    Available Examinations
+                </div>
+
+                <div id="allExams"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECORDS -->
+
+        <section id="recordsPage" class="page hidden">
+
+            <div class="card">
+
+                <div class="card-title">
+                    My Examination Records
+                </div>
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Exam</th>
+                                <th>Date</th>
+                                <th>Score</th>
+                                <th>Percentage</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recordsTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROFILE -->
+
+        <section id="profilePage" class="page hidden">
+
+            <div class="card">
+
+                <div class="card-title">
+                    Student Profile
+                </div>
+
+                <div style="display:grid;gap:15px;max-width:500px">
+
+                    <div>
+                        <small style="color:#697386">Name</small>
+                        <h3 id="profileName"></h3>
+                    </div>
+
+                    <div>
+                        <small style="color:#697386">Student ID</small>
+                        <h3 id="profileId"></h3>
+                    </div>
+
+                    <div>
+                        <small style="color:#697386">Batch</small>
+                        <h3>2026 Batch</h3>
+                    </div>
+
+                    <div>
+                        <small style="color:#697386">Department</small>
+                        <h3>General</h3>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADMIN -->
+
+        <section id="adminPage" class="page hidden">
+
+            <div class="content-grid">
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Create New Exam
+                    </div>
+
+                    <form id="examForm">
+
+                        <input
+                            class="form-input"
+                            id="newExamTitle"
+                            placeholder="Exam title"
+                            required
+                        >
+
+                        <div class="form-row">
+
+                            <input
+                                class="form-input"
+                                id="newExamSubject"
+                                placeholder="Subject"
+                                required
+                            >
+
+                            <input
+                                class="form-input"
+                                id="newExamDuration"
+                                type="number"
+                                placeholder="Duration (minutes)"
+                                value="10"
+                                required
+                            >
+
+                        </div>
+
+                        <textarea
+                            class="form-input"
+                            id="newQuestion"
+                            placeholder="Question"
+                            required
+                        ></textarea>
+
+                        <input
+                            class="form-input"
+                            id="option1"
+                            placeholder="Option A"
+                            required
+                        >
+
+                        <input
+                            class="form-input"
+                            id="option2"
+                            placeholder="Option B"
+                            required
+                        >
+
+                        <input
+                            class="form-input"
+                            id="option3"
+                            placeholder="Option C"
+                            required
+                        >
+
+                        <input
+                            class="form-input"
+                            id="option4"
+                            placeholder="Option D"
+                            required
+                        >
+
+                        <select
+                            class="form-input"
+                            id="correctOption"
+                        >
+                            <option value="0">Correct: A</option>
+                            <option value="1">Correct: B</option>
+                            <option value="2">Correct: C</option>
+                            <option value="3">Correct: D</option>
+                        </select>
+
+                        <button class="primary-btn" type="submit">
+                            Create Exam
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-title">
+                        System Information
+                    </div>
+
+                    <p style="color:#697386;line-height:1.7">
+
+                        This is currently a frontend prototype.
+                        Exams and results are stored locally in the
+                        browser.
+
+                        <br><br>
+
+                        For the production version, connect this system
+                        to a secure database such as Supabase or Firebase.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- EXAM VIEW -->
+
+        <section id="examPage" class="page hidden">
+
+            <div class="exam-container">
+
+                <div class="exam-header">
+
+                    <div>
+                        <div style="font-size:12px;color:#697386">
+                            Examination
+                        </div>
+
+                        <h2 id="examTitle"></h2>
+
+                    </div>
+
+                    <div class="timer" id="timer">
+                        10:00
+                    </div>
+
+                </div>
+
+                <form id="examFormSubmit">
+
+                    <div id="questionsContainer"></div>
+
+                    <button
+                        class="submit-exam"
+                        type="submit"
+                    >
+                        Submit Examination
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULT -->
+
+        <section id="resultPage" class="page hidden">
+
+            <div class="card result-box">
+
+                <div style="color:#697386">
+                    Examination Completed
+                </div>
+
+                <h2 id="resultTitle">
+                    Your Result
+                </h2>
+
+                <div class="score-circle">
+
+                    <strong id="resultScore">
+                        0%
+                    </strong>
+
+                    <span>Score</span>
+
+                </div>
+
+                <div class="result-message" id="resultMessage"></div>
+
+                <button
+                    class="small-btn"
+                    id="resultDashboardBtn"
+                >
+                    Back to Dashboard
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</section>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+const defaultExams = [
+
+    {
+        id: 1,
+        title: "Introduction to Political Science",
+        subject: "Political Science",
+        duration: 10,
+        questions: [
+
+            {
+                q: "Which of the following is generally considered a basic element of the state?",
+                options: [
+                    "Political Party",
+                    "Population",
+                    "Election Commission",
+                    "Newspaper"
+                ],
+                answer: 1
+            },
+
+            {
+                q: "Who wrote 'The Social Contract'?",
+                options: [
+                    "Thomas Hobbes",
+                    "John Locke",
+                    "Jean-Jacques Rousseau",
+                    "Karl Marx"
+                ],
+                answer: 2
+            },
+
+            {
+                q: "Which concept refers to the legitimate right to exercise power?",
+                options: [
+                    "Sovereignty",
+                    "Capitalism",
+                    "Bureaucracy",
+                    "Federalism"
+                ],
+                answer: 0
+            },
+
+            {
+                q: "Who famously argued that 'power corrupts'?",
+                options: [
+                    "Lord Acton",
+                    "Karl Marx",
+                    "Aristotle",
+                    "John Locke"
+                ],
+                answer: 0
+            },
+
+            {
+                q: "Which system has a president who is usually both head of state and head of government?",
+                options: [
+                    "Parliamentary",
+                    "Presidential",
+                    "Monarchical",
+                    "Confederal"
+                ],
+                answer: 1
+            }
+
+        ]
+    }
+
+];
+
+
+/* =========================
+   STATE
+========================= */
+
+let exams = JSON.parse(
+    localStorage.getItem("batchExams")
+) || defaultExams;
+
+let results = JSON.parse(
+    localStorage.getItem("batchResults")
+) || [];
+
+let currentUser = null;
+
+let currentExam = null;
+
+let timerInterval = null;
+
+let timeRemaining = 0;
+
+
+/* =========================
+   LOGIN
+========================= */
+
+document
+.getElementById("loginForm")
+.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const id =
+        document.getElementById("studentId").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    if (
+        id === "2026-001" &&
+        password === "123456"
+    ) {
+
+        currentUser = {
+            id: id,
+            name: "Mahir Ibrahim"
+        };
+
+        document
+            .getElementById("loginPage")
+            .classList.add("hidden");
+
+        document
+            .getElementById("app")
+            .classList.remove("hidden");
+
+        loadUser();
+
+    } else {
+
+        alert(
+            "Invalid login.\n\nDemo:\nID: 2026-001\nPassword: 123456"
+        );
+
+    }
+
+});
+
+
+/* =========================
+   USER
+========================= */
+
+function loadUser() {
+
+    document
+        .getElementById("userName")
+        .textContent = currentUser.name;
+
+    document
+        .getElementById("welcomeName")
+        .textContent = currentUser.name.split(" ")[0];
+
+    document
+        .getElementById("avatar")
+        .textContent =
+        currentUser.name.charAt(0);
+
+    document
+        .getElementById("profileName")
+        .textContent = currentUser.name;
+
+    document
+        .getElementById("profileId")
+        .textContent = currentUser.id;
+
+    updateDashboard();
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+document
+.querySelectorAll(".nav-item[data-page]")
+.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const page =
+            button.dataset.page;
+
+        showPage(page);
+
+        document
+        .querySelectorAll(".nav-item")
+        .forEach(b =>
+            b.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+    });
+
+});
+
+
+function showPage(page) {
+
+    document
+    .querySelectorAll(".page")
+    .forEach(p =>
+        p.classList.add("hidden")
+    );
+
+    const target =
+        document.getElementById(
+            page + "Page"
+        );
+
+    if (target)
+        target.classList.remove("hidden");
+
+    const titles = {
+        dashboard: "Dashboard",
+        exams: "Exams",
+        records: "My Records",
+        profile: "Profile",
+        admin: "Admin"
+    };
+
+    if (titles[page]) {
+
+        document
+        .getElementById("pageTitle")
+        .textContent = titles[page];
+
+    }
+
+    if (page === "dashboard")
+        updateDashboard();
+
+    if (page === "exams")
+        renderExams();
+
+    if (page === "records")
+        renderRecords();
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function updateDashboard() {
+
+    const userResults =
+        results.filter(
+            r => r.studentId === currentUser.id
+        );
+
+    const count =
+        userResults.length;
+
+    const average =
+        count
+        ? Math.round(
+            userResults.reduce(
+                (a, b) => a + b.percentage,
+                0
+            ) / count
+        )
+        : 0;
+
+    const highest =
+        count
+        ? Math.max(
+            ...userResults.map(
+                r => r.percentage
+            )
+        )
+        : 0;
+
+    document
+    .getElementById("statExams")
+    .textContent = count;
+
+    document
+    .getElementById("statAverage")
+    .textContent = average + "%";
+
+    document
+    .getElementById("statHighest")
+    .textContent = highest + "%";
+
+    const best =
+        userResults.length
+        ? userResults.reduce(
+            (a, b) =>
+                a.percentage > b.percentage
+                    ? a
+                    : b
+        )
+        : null;
+
+    document
+    .getElementById("statBest")
+    .textContent =
+        best ? best.percentage + "%" : "—";
+
+
+    renderDashboardExams();
+
+    renderRecentResults();
+
+}
+
+
+/* =========================
+   EXAMS LIST
+========================= */
+
+function renderDashboardExams() {
+
+    const container =
+        document.getElementById(
+            "dashboardExams"
+        );
+
+    container.innerHTML = "";
+
+    exams.slice(0, 3)
+    .forEach(exam => {
+
+        container.innerHTML += examHTML(exam);
+
+    });
+
+}
+
+
+function renderExams() {
+
+    const container =
+        document.getElementById(
+            "allExams"
+        );
+
+    container.innerHTML = "";
+
+    exams.forEach(exam => {
+
+        container.innerHTML += examHTML(exam);
+
+    });
+
+}
+
+
+function examHTML(exam) {
+
+    const alreadyTaken =
+        results.some(
+            r =>
+            r.studentId === currentUser.id &&
+            r.examId === exam.id
+        );
+
+    return `
+
+        <div class="exam-card">
+
+            <div class="exam-top">
+
+                <div>
+
+                    <div class="exam-title">
+                        ${exam.title}
+                    </div>
+
+                    <div class="exam-info">
+                        ${exam.subject}
+                        ·
+                        ${exam.questions.length} questions
+                        ·
+                        ${exam.duration} minutes
+                    </div>
+
+                </div>
+
+                <span class="badge blue">
+                    ${alreadyTaken ? "Completed" : "Available"}
+                </span>
+
+            </div>
+
+            <div class="exam-actions">
+
+                ${
+                    alreadyTaken
+
+                    ? `<button
+                        class="small-btn secondary"
+                        disabled>
+                        Already Taken
+                       </button>`
+
+                    : `<button
+                        class="small-btn"
+                        onclick="startExam(${exam.id})">
+                        Start Exam
+                       </button>`
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================
+   START EXAM
+========================= */
+
+function startExam(id) {
+
+    currentExam =
+        exams.find(
+            exam => exam.id === id
+        );
+
+    if (!currentExam)
+        return;
+
+    document
+    .querySelectorAll(".page")
+    .forEach(p =>
+        p.classList.add("hidden")
+    );
+
+    document
+    .getElementById("examPage")
+    .classList.remove("hidden");
+
+    document
+    .getElementById("pageTitle")
+    .textContent = "Examination";
+
+    document
+    .getElementById("examTitle")
+    .textContent =
+        currentExam.title;
+
+    renderQuestions();
+
+    startTimer(
+        currentExam.duration * 60
+    );
+
+}
+
+
+/* =========================
+   QUESTIONS
+========================= */
+
+function renderQuestions() {
+
+    const container =
+        document.getElementById(
+            "questionsContainer"
+        );
+
+    container.innerHTML = "";
+
+    currentExam.questions
+    .forEach((question, index) => {
+
+        let options = "";
+
+        question.options.forEach(
+            (option, optionIndex) => {
+
+                options += `
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="question-${index}"
+                            value="${optionIndex}"
+                        >
+
+                        ${option}
+
+                    </label>
+
+                `;
+
+            }
+        );
+
+        container.innerHTML += `
+
+            <div class="question-card">
+
+                <div class="question-number">
+                    QUESTION ${index + 1}
+                </div>
+
+                <div class="question-text">
+                    ${question.q}
+                </div>
+
+                ${options}
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+function startTimer(seconds) {
+
+    clearInterval(timerInterval);
+
+    timeRemaining = seconds;
+
+    updateTimer();
+
+    timerInterval =
+        setInterval(() => {
+
+            timeRemaining--;
+
+            updateTimer();
+
+            if (timeRemaining <= 0) {
+
+                clearInterval(
+                    timerInterval
+                );
+
+                alert(
+                    "Time is up. Your exam will be submitted."
+                );
+
+                submitExam();
+
+            }
+
+        }, 1000);
+
+}
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(
+            timeRemaining / 60
+        );
+
+    const seconds =
+        timeRemaining % 60;
+
+    document
+    .getElementById("timer")
+    .textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+}
+
+
+/* =========================
+   SUBMIT EXAM
+========================= */
+
+document
+.getElementById("examFormSubmit")
+.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    submitExam();
+
+});
+
+
+function submitExam() {
+
+    if (!currentExam)
+        return;
+
+    clearInterval(timerInterval);
+
+    let score = 0;
+
+    currentExam.questions
+    .forEach((question, index) => {
+
+        const selected =
+            document.querySelector(
+                `input[name="question-${index}"]:checked`
+            );
+
+        if (
+            selected &&
+            Number(selected.value) ===
+            question.answer
+        ) {
+
+            score++;
+
+        }
+
+    });
+
+    const total =
+        currentExam.questions.length;
+
+    const percentage =
+        Math.round(
+            (score / total) * 100
+        );
+
+    const result = {
+
+        studentId:
+            currentUser.id,
+
+        examId:
+            currentExam.id,
+
+        examTitle:
+            currentExam.title,
+
+        score:
+            score,
+
+        total:
+            total,
+
+        percentage:
+            percentage,
+
+        date:
+            new Date().toLocaleDateString()
+
+    };
+
+
+    /*
+        Prevent duplicate records
+    */
+
+    results =
+        results.filter(
+            r =>
+            !(
+                r.studentId ===
+                currentUser.id &&
+                r.examId ===
+                currentExam.id
+            )
+        );
+
+    results.push(result);
+
+    localStorage.setItem(
+        "batchResults",
+        JSON.stringify(results)
+    );
+
+
+    showResult(result);
+
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+function showResult(result) {
+
+    document
+    .querySelectorAll(".page")
+    .forEach(p =>
+        p.classList.add("hidden")
+    );
+
+    document
+    .getElementById("resultPage")
+    .classList.remove("hidden");
+
+    document
+    .getElementById("pageTitle")
+    .textContent = "Result";
+
+    document
+    .getElementById("resultTitle")
+    .textContent =
+        result.examTitle;
+
+    document
+    .getElementById("resultScore")
+    .textContent =
+        result.percentage + "%";
+
+    let message;
+
+    if (result.percentage >= 80)
+        message =
+            `Excellent! You scored ${result.score}/${result.total}.`;
+
+    else if (result.percentage >= 60)
+        message =
+            `Good work! You scored ${result.score}/${result.total}.`;
+
+    else if (result.percentage >= 40)
+        message =
+            `You passed, but there is room for improvement.`;
+
+    else
+        message =
+            `Keep practicing and try again in the next examination.`;
+
+    document
+    .getElementById("resultMessage")
+    .textContent = message;
+
+    currentExam = null;
+
+}
+
+
+document
+.getElementById("resultDashboardBtn")
+.addEventListener("click", () => {
+
+    showPage("dashboard");
+
+    document
+    .querySelectorAll(".nav-item")
+    .forEach(b =>
+        b.classList.remove("active")
+    );
+
+    document
+    .querySelector(
+        '[data-page="dashboard"]'
+    )
+    .classList.add("active");
+
+});
+
+
+/* =========================
+   RECENT RESULTS
+========================= */
+
+function renderRecentResults() {
+
+    const container =
+        document.getElementById(
+            "recentResults"
+        );
+
+    const userResults =
+        results
+        .filter(
+            r =>
+            r.studentId ===
+            currentUser.id
+        )
+        .slice(-5)
+        .reverse();
+
+    if (!userResults.length) {
+
+        container.innerHTML = `
+            <p style="color:#697386;font-size:13px">
+                No examinations completed yet.
+            </p>
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML =
+        userResults
+        .map(
+            r => `
+
+                <div
+                    style="
+                    display:flex;
+                    justify-content:space-between;
+                    padding:12px 0;
+                    border-bottom:1px solid #e5e9f2;
+                    "
+                >
+
+                    <div>
+
+                        <strong style="font-size:13px">
+                            ${r.examTitle}
+                        </strong>
+
+                        <div
+                            style="
+                            color:#697386;
+                            font-size:11px;
+                            margin-top:3px;
+                            "
+                        >
+                            ${r.date}
+                        </div>
+
+                    </div>
+
+                    <strong>
+                        ${r.percentage}%
+                    </strong>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================
+   RECORDS
+========================= */
+
+function renderRecords() {
+
+    const tbody =
+        document.getElementById(
+            "recordsTable"
+        );
+
+    const userResults =
+        results
+        .filter(
+            r =>
+            r.studentId ===
+            currentUser.id
+        )
+        .reverse();
+
+    if (!userResults.length) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5"
+                    style="text-align:center;color:#697386">
+                    No examination records yet.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    tbody.innerHTML =
+        userResults
+        .map(r => {
+
+            const status =
+                r.percentage >= 40
+                ? "Passed"
+                : "Needs Improvement";
+
+            return `
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${r.examTitle}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${r.date}
+                    </td>
+
+                    <td>
+                        ${r.score}/${r.total}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${r.percentage}%
+                        </strong>
+                    </td>
+
+                    <td>
+
+                        <span class="badge ${
+                            r.percentage >= 40
+                            ? "green"
+                            : "blue"
+                        }">
+
+                            ${status}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+
+/* =========================
+   ADMIN CREATE EXAM
+========================= */
+
+document
+.getElementById("examForm")
+.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const newExam = {
+
+        id:
+            Date.now(),
+
+        title:
+            document
+            .getElementById("newExamTitle")
+            .value,
+
+        subject:
+            document
+            .getElementById("newExamSubject")
+            .value,
+
+        duration:
+            Number(
+                document
+                .getElementById("newExamDuration")
+                .value
+            ),
+
+        questions: [
+
+            {
+
+                q:
+                    document
+                    .getElementById("newQuestion")
+                    .value,
+
+                options: [
+
+                    document
+                    .getElementById("option1")
+                    .value,
+
+                    document
+                    .getElementById("option2")
+                    .value,
+
+                    document
+                    .getElementById("option3")
+                    .value,
+
+                    document
+                    .getElementById("option4")
+                    .value
+
+                ],
+
+                answer:
+                    Number(
+                        document
+                        .getElementById("correctOption")
+                        .value
+                    )
+
+            }
+
+        ]
+
+    };
+
+
+    exams.push(newExam);
+
+    localStorage.setItem(
+        "batchExams",
+        JSON.stringify(exams)
+    );
+
+
+    this.reset();
+
+    alert(
+        "Exam created successfully!"
+    );
+
+    renderExams();
+
+});
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+document
+.getElementById("logoutBtn")
+.addEventListener("click", () => {
+
+    clearInterval(timerInterval);
+
+    currentUser = null;
+
+    document
+        .getElementById("app")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginPage")
+        .classList.remove("hidden");
+
+});
+
+
+</script>
+
+</body>
+</html>
